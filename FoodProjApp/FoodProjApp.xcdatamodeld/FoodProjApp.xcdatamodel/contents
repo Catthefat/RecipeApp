@@ -8,7 +8,13 @@
         <attribute name="servings" optional="YES" attributeType="String"/>
         <attribute name="url" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="ShoppingList" representedClassName="ShoppingList" syncable="YES" codeGenerationType="class">
+        <attribute name="isCompleted" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="item" optional="YES" attributeType="String"/>
+        <attribute name="itemCount" optional="YES" attributeType="String"/>
+    </entity>
     <elements>
         <element name="Items" positionX="-63" positionY="-18" width="128" height="119"/>
+        <element name="ShoppingList" positionX="-63" positionY="27" width="128" height="74"/>
     </elements>
 </model>

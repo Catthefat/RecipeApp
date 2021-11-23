@@ -16,8 +16,9 @@ class RecipeViewController: UIViewController, UISearchBarDelegate {
     var apiKey = "63ce9be4c97b40a599b925a13b4ea5cd"
     var apiKey2 = "29483c45113645b3bb52bd896bd5836e" //two api keys because during testing i used up all calls too quickly
 
-    var context: NSManagedObjectContext?
     var savedItems = [Items]()
+    var context: NSManagedObjectContext?
+
     
     var spoonacularSourceUrl1 = String()
     var titleString = String()
@@ -36,7 +37,9 @@ class RecipeViewController: UIViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Recipes"
+        
         self.searchBar.delegate = self
+        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         context = appDelegate.persistentContainer.viewContext
     }
@@ -60,6 +63,31 @@ class RecipeViewController: UIViewController, UISearchBarDelegate {
            }
        }
     
+    func handleMarkAsSaved() {
+        let newItem = Items(context: context!)
+//        let indexPath = tblView.indexPathForSelectedRow
+////        let item = foodItems[indexPath!.row]
+//        newItem.url = self.sourceUrl
+//        newItem.author = self.sourceUrl
+//        newItem.recipeTitle = self.titleString
+//        newItem.servings = servingsString
+//        newItem.readyIn = readyInMinutesString
+//        newItem.image = imageURLString
+        print("newItem.newsTitle: ", savedItems)
+        savedItems.append(newItem)
+        saveData()
+        loadData()
+    }
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .normal, title: "Save") {
+            (action, view, completionHandler) in self.handleMarkAsSaved()
+            completionHandler(true)
+        }
+        action.backgroundColor = .systemYellow
+        return UISwipeActionsConfiguration(actions: [action])
+    }
+    
+    
 //MARK: search bar text to handleGetData(query: String)
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let text = searchBar.text {
@@ -71,7 +99,7 @@ class RecipeViewController: UIViewController, UISearchBarDelegate {
     
 //MARK: Handle Json data
     func handleGetData(query: String){
-        let jsonUrl = "https://api.spoonacular.com/recipes/complexSearch?query=\(query)&addRecipeInformation=true&sort=popularity&sortDirection=asc&number=1&apiKey=\(apiKey)"
+        let jsonUrl = "https://api.spoonacular.com/recipes/complexSearch?query=\(query)&addRecipeInformation=true&sort=popularity&sortDirection=asc&number=3&apiKey=\(apiKey2)"
         
         guard let url = URL(string: jsonUrl) else {return}
         
@@ -146,31 +174,10 @@ extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
         return 250
     }
 
-//MARK: Trailing swipe "Save" action
-    func handleMarkAsSaved() {
-        let newItem = Items(context: context!)
-        newItem.url = spoonacularSourceUrl1
-        newItem.author = sourceNameString
-        newItem.recipeTitle = titleString
-        newItem.servings = servingsString
-        newItem.readyIn = readyInMinutesString
-        newItem.image = imageURLString
-        print("newItem.newsTitle: ", savedItems)
-        savedItems.append(newItem)
-        saveData()
-        loadData()
 
-    }
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let action = UIContextualAction(style: .normal, title: "Save") {
-            (action, view, completionHandler) in self.handleMarkAsSaved()
-            completionHandler(true)
-        }
-        action.backgroundColor = .systemYellow
-        return UISwipeActionsConfiguration(actions: [action])
-    }
+//MARK: Trailing swipe "Save" action
     
-    
+ 
 //MARK: Segue to WebView
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showLink" {
