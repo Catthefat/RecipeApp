@@ -288,7 +288,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V4k-W3-PQ9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2688" y="212"/>
+            <point key="canvasLocation" x="2734" y="610"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="ugh-a4-zgX">
@@ -629,7 +629,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="6db-0c-v2p"/>
+        <segue reference="zH0-RA-h6V"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="list.bullet.rectangle.portrait" catalog="system" width="115" height="128"/>
