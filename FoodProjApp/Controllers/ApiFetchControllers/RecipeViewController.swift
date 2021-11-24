@@ -20,12 +20,12 @@ class RecipeViewController: UIViewController, UISearchBarDelegate {
     var context: NSManagedObjectContext?
 
     
-    var spoonacularSourceUrl1 = String()
-    var titleString = String()
-    var servingsString = String()
-    var imageURLString = String()
-    var readyInMinutesString = String()
-    var sourceNameString = String()
+//    var spoonacularSourceUrl1 = String()
+//    var titleString = String()
+//    var servingsString = String()
+//    var imageURLString = String()
+//    var readyInMinutesString = String()
+//    var sourceNameString = String()
 
     
     var foodItems: [FoodItems] = []
@@ -36,13 +36,15 @@ class RecipeViewController: UIViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Recipes"
         
         self.searchBar.delegate = self
-        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         context = appDelegate.persistentContainer.viewContext
+        
+        
     }
+    
+//MARK: Save/Load Data
     
     func saveData(){
         do{
@@ -63,32 +65,41 @@ class RecipeViewController: UIViewController, UISearchBarDelegate {
            }
        }
     
+//MARK: Trailing swipe "Save" action
+
+    
     func handleMarkAsSaved() {
         let newItem = Items(context: context!)
 //        let indexPath = tblView.indexPathForSelectedRow
-////        let item = foodItems[indexPath!.row]
+//        let item = foodItems[indexPath!.row]
 //        newItem.url = self.sourceUrl
-//        newItem.author = self.sourceUrl
-//        newItem.recipeTitle = self.titleString
-//        newItem.servings = servingsString
-//        newItem.readyIn = readyInMinutesString
-//        newItem.image = imageURLString
+//        newItem.author = item.sourceName
+//        newItem.recipeTitle = item.title
+////        newItem.servings = item.servings
+////        newItem.readyIn = item.readyInMinutes
+//        newItem.image = item.imageURL
         print("newItem.newsTitle: ", savedItems)
         savedItems.append(newItem)
         saveData()
         loadData()
     }
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let action = UIContextualAction(style: .normal, title: "Save") {
             (action, view, completionHandler) in self.handleMarkAsSaved()
             completionHandler(true)
         }
-        action.backgroundColor = .systemYellow
+        action.backgroundColor = .systemOrange
         return UISwipeActionsConfiguration(actions: [action])
     }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        savedItems[indexPath.row] = !savedItems[indexPath.row]
+//        saveData()
+//    }
     
     
 //MARK: search bar text to handleGetData(query: String)
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let text = searchBar.text {
             tblView?.reloadData()
@@ -97,9 +108,10 @@ class RecipeViewController: UIViewController, UISearchBarDelegate {
         searchBar.endEditing(true)
        }
     
+    
 //MARK: Handle Json data
     func handleGetData(query: String){
-        let jsonUrl = "https://api.spoonacular.com/recipes/complexSearch?query=\(query)&addRecipeInformation=true&sort=popularity&sortDirection=asc&number=3&apiKey=\(apiKey2)"
+        let jsonUrl = "https://api.spoonacular.com/recipes/complexSearch?query=\(query)&addRecipeInformation=true&sort=popularity&sortDirection=asc&number=4&apiKey=\(apiKey2)"
         
         guard let url = URL(string: jsonUrl) else {return}
         
@@ -173,9 +185,6 @@ extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 250
     }
-
-
-//MARK: Trailing swipe "Save" action
     
  
 //MARK: Segue to WebView

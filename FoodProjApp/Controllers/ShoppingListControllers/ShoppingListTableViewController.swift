@@ -23,6 +23,8 @@ class ShoppingListTableViewController: UITableViewController {
         loadData()
     }
     
+// MARK: Save/Load Data
+    
     func loadData(){
         let request: NSFetchRequest<ShoppingList> = ShoppingList.fetchRequest()
         do{
@@ -43,16 +45,7 @@ class ShoppingListTableViewController: UITableViewController {
         loadData()
     }
     
-    func deleteAllData(){
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Shopping")
-        let delete: NSBatchDeleteRequest = NSBatchDeleteRequest(fetchRequest: request)
-        do{
-            try managedObjectContext?.execute(delete)
-            saveData()
-        }catch let err {
-            print(err.localizedDescription)
-        }
-    }
+//MARK: Button to add items
     
     @IBAction func addItem(_ sender: Any) {
         let alertController = UIAlertController(title: "Shopping Item", message: "What do you want to add?", preferredStyle: .alert)
@@ -63,7 +56,7 @@ class ShoppingListTableViewController: UITableViewController {
         alertController.addTextField { textFieldCount in
             print("textFieldCount: ", textFieldCount)
             textFieldCount.placeholder = "Number of items"
-            textFieldCount.keyboardType = .numberPad
+            textFieldCount.keyboardType = .default
         }
         
         let addActionButton = UIAlertAction(title: "Add", style: .default) { action in
@@ -87,6 +80,8 @@ class ShoppingListTableViewController: UITableViewController {
         present(alertController, animated: true, completion: nil)
     }
     
+//MARK: Edit button
+    
     @IBAction func EditButton(_ sender: Any) {
         isEditing = !isEditing
     }
@@ -98,6 +93,19 @@ class ShoppingListTableViewController: UITableViewController {
         shopping.remove(at: sourceIndexPath.row)
         shopping.insert(itemToMove, at: destinationIndexPath.row)
         loadData()
+    }
+
+//MARK: Delete all button
+    
+    func deleteAllData(){
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Items")
+        let delete: NSBatchDeleteRequest = NSBatchDeleteRequest(fetchRequest: request)
+        do{
+            try context?.execute(delete)
+            saveData()
+        }catch let err {
+            print(err.localizedDescription)
+        }
     }
     
     @IBAction func DeleteAllButton(_ sender: Any) {
@@ -113,9 +121,10 @@ class ShoppingListTableViewController: UITableViewController {
         
         present(alertController, animated: true, completion: nil)
     }
-    // MARK: - Table view data source
+    
+// MARK: Cell and Row configuration
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return shopping.count
     }
     
@@ -123,8 +132,6 @@ class ShoppingListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "shoppingCell", for: indexPath)
         
-        // Configure the cell...
-        //        cell.textLabel?.text = shopping[indexPath.row]
         let shop = shopping[indexPath.row]
         cell.textLabel?.text = "Item: \(shop.value(forKey: "item") ?? "")"
         cell.detailTextLabel?.text = "Qty: \(shop.value(forKey: "itemCount") ?? "")"
@@ -132,9 +139,8 @@ class ShoppingListTableViewController: UITableViewController {
         return cell
     }
     
-    
-    // MARK: - Table view delegate
-    // Override to support editing the table view.
+// MARK: Delete singe item at line
+
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
@@ -142,6 +148,9 @@ class ShoppingListTableViewController: UITableViewController {
         }
         saveData()
     }
+    
+    
+//MARK: Checkmark
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         shopping[indexPath.row].isCompleted = !shopping[indexPath.row].isCompleted

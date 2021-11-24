@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZGG-XO-6WJ">
-    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <device id="retina6_0" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Search for recipes-->
+        <!--Recipe Finder-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="RecipeViewController" customModule="FoodProjApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,7 +19,11 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ljP-Rq-Sig">
                                 <rect key="frame" x="0.0" y="123" width="390" height="721"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" systemColor="labelColor"/>
+                                <inset key="separatorInset" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
+                                <color key="sectionIndexBackgroundColor" systemColor="secondaryLabelColor"/>
+                                <color key="sectionIndexTrackingBackgroundColor" systemColor="systemGrayColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="recipeCell" rowHeight="250" id="5cb-FU-EFd" customClass="RecipeTableViewCell" customModule="FoodProjApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="250"/>
@@ -110,6 +115,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="vvO-nJ-kIP" secondAttribute="bottom" id="tOn-K4-B3u"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" systemColor="separatorColor"/>
                                         <connections>
                                             <outlet property="RecipeNameLabel" destination="vHc-VR-qs6" id="fQC-hV-Mtl"/>
                                             <outlet property="authorLabel" destination="Vce-tK-TQE" id="uu4-vD-iD3"/>
@@ -125,16 +131,17 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="9ab-sx-mMx"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" placeholder="Enter a food type" translatesAutoresizingMaskIntoConstraints="NO" id="tMT-YZ-9sm">
+                            <searchBar contentMode="redraw" barStyle="blackTranslucent" searchBarStyle="minimal" placeholder="Enter a food type" translatesAutoresizingMaskIntoConstraints="NO" id="tMT-YZ-9sm">
                                 <rect key="frame" x="0.0" y="88" width="390" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="CtJ-8q-bU5"/>
                                 </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="ljP-Rq-Sig" secondAttribute="bottom" id="5AQ-T2-6KB"/>
                             <constraint firstItem="tMT-YZ-9sm" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Kmg-1V-XHu"/>
@@ -145,7 +152,7 @@
                             <constraint firstItem="ljP-Rq-Sig" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="wsz-Is-Uh7"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Search for recipes" id="Ea9-ba-5ep"/>
+                    <navigationItem key="navigationItem" title="Recipe Finder" id="Ea9-ba-5ep"/>
                     <connections>
                         <outlet property="searchBar" destination="tMT-YZ-9sm" id="iIc-Zm-giV"/>
                         <outlet property="tblView" destination="ljP-Rq-Sig" id="YTk-JX-7vo"/>
@@ -271,7 +278,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V4k-W3-PQ9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3950" y="808"/>
+            <point key="canvasLocation" x="4520" y="862"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="ugh-a4-zgX">
@@ -306,9 +313,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WMP-JO-HrF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2914" y="535"/>
+            <point key="canvasLocation" x="3165" y="523"/>
         </scene>
-        <!--Root View Controller-->
+        <!--Saved Recipes-->
         <scene sceneID="WmX-uL-M0c">
             <objects>
                 <tableViewController id="Tlw-hV-nRY" customClass="SavedRecipeTableViewController" customModule="FoodProjApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -347,6 +354,9 @@
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="135" id="Gae-Vs-BOg"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="" value="YES"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ZEz-eH-l4W">
                                                     <rect key="frame" x="143" y="0.0" width="237" height="150"/>
@@ -430,13 +440,16 @@
                             <outlet property="delegate" destination="Tlw-hV-nRY" id="w2f-Sc-1mT"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="KuH-rn-Hch">
-                        <barButtonItem key="leftBarButtonItem" image="trash" catalog="system" id="3pP-qz-xUW">
+                    <navigationItem key="navigationItem" title="Saved Recipes" id="KuH-rn-Hch">
+                        <barButtonItem key="leftBarButtonItem" id="3pP-qz-xUW">
+                            <imageReference key="image" image="trash" catalog="system"/>
+                            <color key="tintColor" systemColor="systemOrangeColor"/>
                             <connections>
                                 <action selector="DeleteButton:" destination="Tlw-hV-nRY" id="ytY-kz-11K"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Edit" id="0Kr-cm-bji">
+                            <color key="tintColor" systemColor="systemOrangeColor"/>
                             <connections>
                                 <action selector="startEditing:" destination="Tlw-hV-nRY" id="LVd-fz-bPH"/>
                             </connections>
@@ -448,7 +461,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kFk-CC-4gg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1652" y="862"/>
+            <point key="canvasLocation" x="1651" y="862"/>
         </scene>
         <!--Shopping List-->
         <scene sceneID="CsG-RM-wP4">
@@ -482,6 +495,7 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <color key="tintColor" systemColor="systemOrangeColor"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -491,17 +505,20 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Shopping List" id="hpd-F1-Mc2">
                         <barButtonItem key="leftBarButtonItem" image="trash" catalog="system" id="TIh-NH-zKO">
+                            <color key="tintColor" systemColor="systemOrangeColor"/>
                             <connections>
                                 <action selector="DeleteAllButton:" destination="Zqh-Xi-kff" id="bvT-j6-FTn"/>
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem image="plus" catalog="system" id="jec-Fq-rjz">
+                                <color key="tintColor" systemColor="systemOrangeColor"/>
                                 <connections>
                                     <action selector="addItem:" destination="Zqh-Xi-kff" id="Q9n-S7-Nhy"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="Edit" id="X6l-Cp-200">
+                                <color key="tintColor" systemColor="systemOrangeColor"/>
                                 <connections>
                                     <action selector="EditButton:" destination="Zqh-Xi-kff" id="Acc-yC-6ds"/>
                                 </connections>
@@ -513,11 +530,11 @@
             </objects>
             <point key="canvasLocation" x="1652" y="1503"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="QZM-yT-waK">
             <objects>
                 <navigationController id="mKb-MY-ejT" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="keW-8z-1rK"/>
+                    <tabBarItem key="tabBarItem" title="" image="star" catalog="system" id="keW-8z-1rK"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Sxy-j9-GoB">
                         <rect key="frame" x="0.0" y="44" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -530,15 +547,21 @@
             </objects>
             <point key="canvasLocation" x="931" y="863"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="Z0j-wW-nXa">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="awo-hx-cYj" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="EHc-09-DRs"/>
+                    <tabBarItem key="tabBarItem" title="" image="magnifyingglass" catalog="system" id="EHc-09-DRs"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="poe-WY-e28">
                         <rect key="frame" x="0.0" y="44" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" systemColor="systemOrangeColor"/>
+                            <color key="textShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <offsetWrapper key="textShadowOffset" horizontal="1" vertical="1"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -557,7 +580,9 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="F51-SO-z8M">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" systemColor="systemOrangeColor"/>
                     </tabBar>
                     <connections>
                         <segue destination="awo-hx-cYj" kind="relationship" relationship="viewControllers" id="TYZ-yf-THq"/>
@@ -567,13 +592,13 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tDj-V3-IQc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-494" y="931"/>
+            <point key="canvasLocation" x="-875" y="946"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="NYk-nf-ThZ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fv4-m7-LVz" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="h22-Tm-lQJ"/>
+                    <tabBarItem key="tabBarItem" title="" image="list.bullet.rectangle.portrait" catalog="system" id="h22-Tm-lQJ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="cmX-8f-abY">
                         <rect key="frame" x="0.0" y="44" width="390" height="44"/>
@@ -594,13 +619,25 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="applelogo" catalog="system" width="103" height="128"/>
+        <image name="list.bullet.rectangle.portrait" catalog="system" width="115" height="128"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="star" catalog="system" width="128" height="116"/>
         <image name="trash" catalog="system" width="121" height="128"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="separatorColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

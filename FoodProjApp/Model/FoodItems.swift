@@ -18,7 +18,6 @@ struct FoodItems: Decodable {
     var readyInMinutes: Int
     var sourceName: String
     var cuisines: [String] = []
-//    var extendedIngredients: [ExtendedIngredients]
     
     enum CodingKeys: String, CodingKey{
         case summary
@@ -29,9 +28,20 @@ struct FoodItems: Decodable {
         case readyInMinutes
         case sourceName
         case cuisines
-//        case extendedIngredients
     }
 }
+struct Results: Decodable {
+    let results: [FoodItems]
+
+}
+
+
+
+
+//    var extendedIngredients: [ExtendedIngredients]
+
+//        case extendedIngredients
+
 //struct ExtendedIngredients: Decodable {
 //    var name: String
 //    var amount: Int
@@ -44,8 +54,3 @@ struct FoodItems: Decodable {
 //}
 //
 //}
-
-struct Results: Decodable {
-    let results: [FoodItems]
-
-}

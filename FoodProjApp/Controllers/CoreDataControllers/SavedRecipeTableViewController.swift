@@ -20,7 +20,6 @@ class SavedRecipeTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Saved Recipes"
         self.reloadInputViews()
 
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
