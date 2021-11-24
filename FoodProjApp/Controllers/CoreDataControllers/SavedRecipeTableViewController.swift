@@ -11,6 +11,7 @@ import SDWebImage
 
 class SavedRecipeTableViewController: UITableViewController {
 
+    
     var savedItems = [Items]()
     var context: NSManagedObjectContext?
     var recipeTitle = String()
@@ -134,16 +135,28 @@ class SavedRecipeTableViewController: UITableViewController {
         saveData()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let indexPath = SavedRecipeTableView.indexPathForSelectedRow
-        let item = savedItems[indexPath!.row]
-        // Get the new view controller using segue.destination.
-        
-        let destinationVC: WebViewController = segue.destination as! WebViewController
-        destinationVC.urlString = item.url!
-        // Pass the selected object to the new view controller.
-        
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let indexPath = SavedRecipeTableView.indexPathForSelectedRow
+//        let item = savedItems[indexPath!.row]
+//        // Get the new view controller using segue.destination.
+//
+//        let destinationVC: WebViewController = segue.destination as! WebViewController
+//        destinationVC.urlString = item.url!
+//        // Pass the selected object to the new view controller.
+//
+//    }
+    
+    
+     func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showRecipeDetail" {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                let detailVC: SavedDetailViewController = segue.destination as! SavedDetailViewController
+//                let object = self.fetched
+//                detailVC.savedDetail = savedItems[indexPath.row]
+            }
+        }
     }
+    //showRecipeDetail
 
     /*
     // Override to support editing the table view.
