@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZGG-XO-6WJ">
-    <device id="retina6_0" orientation="portrait" appearance="dark"/>
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Image references" minToolsVersion="12.0"/>
@@ -13,17 +13,15 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="RecipeViewController" customModule="FoodProjApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ljP-Rq-Sig">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ljP-Rq-Sig">
                                 <rect key="frame" x="0.0" y="123" width="390" height="721"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="separatorColor" systemColor="labelColor"/>
-                                <inset key="separatorInset" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
-                                <color key="sectionIndexBackgroundColor" systemColor="secondaryLabelColor"/>
-                                <color key="sectionIndexTrackingBackgroundColor" systemColor="systemGrayColor"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="recipeCell" rowHeight="250" id="5cb-FU-EFd" customClass="RecipeTableViewCell" customModule="FoodProjApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="250"/>
@@ -40,7 +38,7 @@
                                                     <attributedString key="attributedText">
                                                         <fragment content="Label">
                                                             <attributes>
-                                                                <font key="NSFont" size="17" name="Helvetica-LightOblique"/>
+                                                                <font key="NSFont" size="21" name="Graphik-SemiboldItalic"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -115,7 +113,6 @@
                                                 <constraint firstAttribute="bottom" secondItem="vvO-nJ-kIP" secondAttribute="bottom" id="tOn-K4-B3u"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" systemColor="separatorColor"/>
                                         <connections>
                                             <outlet property="RecipeNameLabel" destination="vHc-VR-qs6" id="fQC-hV-Mtl"/>
                                             <outlet property="authorLabel" destination="Vce-tK-TQE" id="uu4-vD-iD3"/>
@@ -131,17 +128,20 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="9ab-sx-mMx"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" barStyle="blackTranslucent" searchBarStyle="minimal" placeholder="Enter a food type" translatesAutoresizingMaskIntoConstraints="NO" id="tMT-YZ-9sm">
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Enter a food type" translatesAutoresizingMaskIntoConstraints="NO" id="tMT-YZ-9sm">
                                 <rect key="frame" x="0.0" y="88" width="390" height="35"/>
+                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="CtJ-8q-bU5"/>
                                 </constraints>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" systemColor="systemRedColor"/>
+                                <color key="barTintColor" systemColor="systemOrangeColor"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                        <color key="tintColor" systemColor="labelColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="ljP-Rq-Sig" secondAttribute="bottom" id="5AQ-T2-6KB"/>
                             <constraint firstItem="tMT-YZ-9sm" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Kmg-1V-XHu"/>
@@ -152,7 +152,7 @@
                             <constraint firstItem="ljP-Rq-Sig" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="wsz-Is-Uh7"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Recipe Finder" id="Ea9-ba-5ep"/>
+                    <navigationItem key="navigationItem" title="Recipe Finder" largeTitleDisplayMode="always" id="Ea9-ba-5ep"/>
                     <connections>
                         <outlet property="searchBar" destination="tMT-YZ-9sm" id="iIc-Zm-giV"/>
                         <outlet property="tblView" destination="ljP-Rq-Sig" id="YTk-JX-7vo"/>
@@ -278,7 +278,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V4k-W3-PQ9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4520" y="862"/>
+            <point key="canvasLocation" x="2795" y="251"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="ugh-a4-zgX">
@@ -313,16 +313,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WMP-JO-HrF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3165" y="523"/>
+            <point key="canvasLocation" x="3608" y="945"/>
         </scene>
         <!--Saved Recipes-->
         <scene sceneID="WmX-uL-M0c">
             <objects>
                 <tableViewController id="Tlw-hV-nRY" customClass="SavedRecipeTableViewController" customModule="FoodProjApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="vHq-wI-b31" customClass="myTable">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" id="vHq-wI-b31" customClass="myTable">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="separatorColor" systemColor="labelColor"/>
+                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="savedCell" rowHeight="250" id="TS5-Cx-OCu" customClass="SavedRecipeTableViewCell" customModule="FoodProjApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="250"/>
@@ -339,7 +341,7 @@
                                             <attributedString key="attributedText">
                                                 <fragment content="Label">
                                                     <attributes>
-                                                        <font key="NSFont" size="17" name="Helvetica-LightOblique"/>
+                                                        <font key="NSFont" size="21" name="Graphik-SemiboldItalic"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
@@ -425,6 +427,7 @@
                                         <constraint firstAttribute="trailing" secondItem="zPi-Vo-X2o" secondAttribute="trailing" id="jo4-gW-DYH"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="tintColor" systemColor="labelColor"/>
                                 <connections>
                                     <outlet property="SavedAuthorLabel" destination="9ko-Ot-aOG" id="jZv-pF-LcD"/>
                                     <outlet property="SavedImageView" destination="rBf-rs-1mA" id="M0g-hd-8nO"/>
@@ -443,13 +446,13 @@
                     <navigationItem key="navigationItem" title="Saved Recipes" id="KuH-rn-Hch">
                         <barButtonItem key="leftBarButtonItem" id="3pP-qz-xUW">
                             <imageReference key="image" image="trash" catalog="system"/>
-                            <color key="tintColor" systemColor="systemOrangeColor"/>
+                            <color key="tintColor" systemColor="systemPinkColor"/>
                             <connections>
                                 <action selector="DeleteButton:" destination="Tlw-hV-nRY" id="ytY-kz-11K"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Edit" id="0Kr-cm-bji">
-                            <color key="tintColor" systemColor="systemOrangeColor"/>
+                            <color key="tintColor" systemColor="systemPinkColor"/>
                             <connections>
                                 <action selector="startEditing:" destination="Tlw-hV-nRY" id="LVd-fz-bPH"/>
                             </connections>
@@ -505,20 +508,20 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Shopping List" id="hpd-F1-Mc2">
                         <barButtonItem key="leftBarButtonItem" image="trash" catalog="system" id="TIh-NH-zKO">
-                            <color key="tintColor" systemColor="systemOrangeColor"/>
+                            <color key="tintColor" systemColor="systemPinkColor"/>
                             <connections>
                                 <action selector="DeleteAllButton:" destination="Zqh-Xi-kff" id="bvT-j6-FTn"/>
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem image="plus" catalog="system" id="jec-Fq-rjz">
-                                <color key="tintColor" systemColor="systemOrangeColor"/>
+                                <color key="tintColor" systemColor="systemPinkColor"/>
                                 <connections>
                                     <action selector="addItem:" destination="Zqh-Xi-kff" id="Q9n-S7-Nhy"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="Edit" id="X6l-Cp-200">
-                                <color key="tintColor" systemColor="systemOrangeColor"/>
+                                <color key="tintColor" systemColor="systemPinkColor"/>
                                 <connections>
                                     <action selector="EditButton:" destination="Zqh-Xi-kff" id="Acc-yC-6ds"/>
                                 </connections>
@@ -538,6 +541,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Sxy-j9-GoB">
                         <rect key="frame" x="0.0" y="44" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" systemColor="systemOrangeColor"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="Tlw-hV-nRY" kind="relationship" relationship="rootViewController" id="4Bp-Uk-oMx"/>
@@ -556,11 +562,8 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="poe-WY-e28">
                         <rect key="frame" x="0.0" y="44" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" systemColor="systemOrangeColor"/>
-                            <color key="textShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <offsetWrapper key="textShadowOffset" horizontal="1" vertical="1"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -580,8 +583,6 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="F51-SO-z8M">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="barTintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="selectedImageTintColor" systemColor="systemOrangeColor"/>
                     </tabBar>
                     <connections>
@@ -603,6 +604,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="cmX-8f-abY">
                         <rect key="frame" x="0.0" y="44" width="390" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" systemColor="systemOrangeColor"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -627,20 +631,20 @@
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
-        <systemColor name="secondaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="separatorColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
-        <systemColor name="systemGrayColor">
-            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPinkColor">
+            <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

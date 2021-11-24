@@ -114,11 +114,11 @@ class SavedRecipeTableViewController: UITableViewController {
 //        let indexPath = SavedRecipeTableView.indexPathForSelectedRow
         let item = savedItems[indexPath.row]
         
-//        cell.SavedTitleLabel?.text = item.recipeTitle
-        cell.SavedAuthorLabel?.text = item.author
-        cell.SavedReadyInLabel?.text = item.readyIn
-        cell.savedServingsLabel?.text = item.servings
-//        cell.SavedImageView?.text = item.image
+        cell.SavedTitleLabel?.text = item.recipeTitle
+        cell.SavedAuthorLabel?.text = "Author: " + item.author!
+        cell.SavedReadyInLabel?.text = "Cooking Time: " + item.readyIn! + " min"
+        cell.savedServingsLabel?.text = "Servings: " + item.servings!
+        cell.SavedImageView.sd_setImage(with: URL(string: item.image!))
         return cell
     }
     
