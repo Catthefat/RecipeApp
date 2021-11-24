@@ -12,21 +12,11 @@ import CoreData
 
 class RecipeViewController: UIViewController, UISearchBarDelegate {
     
-    //    let searchResult: String = "pasta"
     var apiKey = "63ce9be4c97b40a599b925a13b4ea5cd"
     var apiKey2 = "29483c45113645b3bb52bd896bd5836e" //two api keys because during testing i used up all calls too quickly
     
     var savedItems = [Items]()
     var context: NSManagedObjectContext?
-    
-    
-    //    var spoonacularSourceUrl1 = String()
-    //    var titleString = String()
-    //    var servingsString = String()
-    //    var imageURLString = String()
-    //    var readyInMinutesString = String()
-    //    var sourceNameString = String()
-    
     
     var foodItems: [FoodItems] = []
     let sourceUrl = String()
@@ -76,7 +66,7 @@ class RecipeViewController: UIViewController, UISearchBarDelegate {
         newItem.url = item.sourceUrl
         newItem.author = item.sourceName
         newItem.recipeTitle = item.title
-        newItem.image = item.imageURL
+        newItem.image = item.image
         newItem.readyIn = String(item.readyInMinutes)
         newItem.servings = String(item.servings)
         
@@ -113,7 +103,7 @@ class RecipeViewController: UIViewController, UISearchBarDelegate {
     
     //MARK: Handle Json data
     func handleGetData(query: String){
-        let jsonUrl = "https://api.spoonacular.com/recipes/complexSearch?query=\(query)&addRecipeInformation=true&sort=popularity&sortDirection=asc&number=5&apiKey=\(apiKey2)"
+        let jsonUrl = "https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&sort=popularity&sortDirection=asc&query=\(query)&number=1&apiKey=\(apiKey)&fillIngredients=true"
         
         guard let url = URL(string: jsonUrl) else {return}
         
@@ -180,7 +170,7 @@ extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
         cell.servingsLabel.text = "Servings: " + String(item.servings)
         cell.readyInLabel.text = "Cooking Time: " + String(item.readyInMinutes) + " min"
         cell.RecipeNameLabel.text = item.title
-        cell.recipeImageView.sd_setImage(with:URL(string: item.imageURL), placeholderImage: UIImage(named: "applelogo"))
+        cell.recipeImageView.sd_setImage(with:URL(string: item.image), placeholderImage: UIImage(named: "applelogo"))
         
         return cell
     }
@@ -192,14 +182,28 @@ extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     //MARK: Segue to WebView
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showLink" {
-            if let indexPath = tblView.indexPathForSelectedRow {
-                let destination = segue.destination as?
-                WebViewController
-                let item = foodItems[indexPath.row]
-                destination?.urlString = item.sourceUrl
-            }
+        if let indexPath = tblView.indexPathForSelectedRow {
+            print("Index path:", indexPath)
+
+        let detailVC = segue.destination as! DetailRecipeViewController
+
+        detailVC.details = foodItems[indexPath.row]
+            
         }
     }
+    
+    
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "showLink" {
+//            if let indexPath = tblView.indexPathForSelectedRow {
+//                let destination = segue.destination as?
+//                WebViewController
+//                let item = foodItems[indexPath.row]
+//                destination?.urlString = item.sourceUrl
+//            }
+//        }
+//    }
 }
