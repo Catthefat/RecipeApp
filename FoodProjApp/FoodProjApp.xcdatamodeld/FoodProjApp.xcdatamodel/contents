@@ -3,6 +3,7 @@
     <entity name="Items" representedClassName="Items" syncable="YES" codeGenerationType="class">
         <attribute name="author" optional="YES" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="String"/>
+        <attribute name="ingredients" optional="YES" attributeType="String"/>
         <attribute name="readyIn" optional="YES" attributeType="String"/>
         <attribute name="recipeTitle" optional="YES" attributeType="String"/>
         <attribute name="servings" optional="YES" attributeType="String"/>
@@ -15,7 +16,7 @@
         <attribute name="itemCount" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Items" positionX="-63" positionY="-18" width="128" height="134"/>
+        <element name="Items" positionX="-63" positionY="-18" width="128" height="149"/>
         <element name="ShoppingList" positionX="-63" positionY="27" width="128" height="74"/>
     </elements>
 </model>

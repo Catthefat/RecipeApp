@@ -7,8 +7,9 @@
 
 import UIKit
 import SDWebImage
+import CoreData
 
-class DetailRecipeViewController: UIViewController {
+class DetailRecipeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var details: FoodItems!
     var foodItems: [FoodItems] = []
@@ -26,6 +27,8 @@ class DetailRecipeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        DetailTblView.delegate = self
+        DetailTblView.dataSource = self
         
         
         instructionsLabel?.text = details.summary
@@ -34,7 +37,7 @@ class DetailRecipeViewController: UIViewController {
             .replacingOccurrences(of: "<a href=", with: " ")
             .replacingOccurrences(of: "</a>", with: " ")
         titleTextLabel?.text = details.title
-        ImageView.sd_setImage(with: URL(string: details.image))
+//        ImageView.sd_setImage(with: URL(string: details.image))
         
 
 //        let words: () = details.extendedIngredients.forEach({ ExtendedIngredients in
@@ -42,36 +45,33 @@ class DetailRecipeViewController: UIViewController {
 //
 //        })
 //        print("Words: ", words)
-        
-        for extendedIngredients in details.extendedIngredients {
-            print("name: ", extendedIngredients.name)
-            ingredientsLabel?.text = extendedIngredients.name
-        }
-    }
+//
+//        for extendedIngredients in details.extendedIngredients {
+//            print("name: ", extendedIngredients.name)
+//            ingredientsLabel?.text = extendedIngredients.name
+//        }
+//    }
 //    + String(extendedIngredients.amount) + extendedIngredients.unit
 //    cell.dateLabel.text = item.publishedAt
 //          .replacingOccurrences(of: "T", with: " ")
 //          .replacingOccurrences(of: "Z", with: "")
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationVC: WebViewController = segue.destination as! WebViewController
-        
-        destinationVC.urlString = details!.sourceUrl
-        // Pass the selected object to the new view controller.
     }
 
-}
-extension DetailRecipeViewController: UITableViewDelegate, UITableViewDataSource {
-    
+    var testArr = ["one", "two", "three"]
+
 //MARK: Cell and Table Configuration
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if details.extendedIngredients.count == 0 {
+        
+        if foodItems.count == 0 {
                 self.DetailTblView.setEmptyMessage("No ingredients found!")
             } else {
                 self.DetailTblView.restore()
             }
-        return  details.extendedIngredients.count
+        
+        return details.extendedIngredients.count
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -80,12 +80,21 @@ extension DetailRecipeViewController: UITableViewDelegate, UITableViewDataSource
         
         let item = details.extendedIngredients[indexPath.row]
         cell.IngredientsLabel?.text = item.name
+        cell.AmountLabel?.text = String(item.amount) + " " + item.unit
+      
         return cell
     }
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 60
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+       let destinationVC: WebViewController = segue.destination as! WebViewController
+       
+       destinationVC.urlString = details!.sourceUrl
+       // Pass the selected object to the new view controller.
+   }
 }
+

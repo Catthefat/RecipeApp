@@ -75,6 +75,7 @@ class RecipeViewController: UIViewController, UISearchBarDelegate {
         print("indexPath:", indexPath)
         let item = foodItems[indexPath.row]
         
+        
         newItem.url = item.sourceUrl
         newItem.author = item.sourceName
         newItem.recipeTitle = item.title
