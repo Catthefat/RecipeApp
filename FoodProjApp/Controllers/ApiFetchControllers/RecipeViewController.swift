@@ -69,6 +69,7 @@ class RecipeViewController: UIViewController, UISearchBarDelegate {
         newItem.image = item.image
         newItem.readyIn = String(item.readyInMinutes)
         newItem.servings = String(item.servings)
+        newItem.summary = item.summary
         
         
         savedItems.append(newItem)
@@ -103,7 +104,7 @@ class RecipeViewController: UIViewController, UISearchBarDelegate {
     
     //MARK: Handle Json data
     func handleGetData(query: String){
-        let jsonUrl = "https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&sort=popularity&sortDirection=asc&query=\(query)&number=1&apiKey=\(apiKey)&fillIngredients=true"
+        let jsonUrl = "https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&sort=popularity&sortDirection=asc&query=\(query)&number=6&apiKey=\(apiKey2)&fillIngredients=true"
         
         guard let url = URL(string: jsonUrl) else {return}
         

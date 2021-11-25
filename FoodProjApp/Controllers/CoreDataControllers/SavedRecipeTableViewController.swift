@@ -17,6 +17,7 @@ class SavedRecipeTableViewController: UITableViewController {
     var recipeTitle = String()
     var urlStr = String()
 
+    @IBOutlet weak var EditBttn: UIBarButtonItem!
     @IBOutlet var SavedRecipeTableView: UITableView!
     
     override func viewDidLoad() {
@@ -91,19 +92,28 @@ class SavedRecipeTableViewController: UITableViewController {
         present(alertController, animated: true, completion: nil)
         saveData()
     }
-    
-    @IBAction func startEditing(_ sender: Any) {
-        isEditing = !isEditing
+
+//MARK: Edit button
+    @IBAction func EditBttnPressed(_ sender: Any) {
+        SavedRecipeTableView.isEditing = !SavedRecipeTableView.isEditing
+        
+        switch SavedRecipeTableView.isEditing{
+        case true:
+            EditBttn.title = "Done"
+        case false:
+            EditBttn.title = "Edit"
+
+        }
     }
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let itemToMove = savedItems[sourceIndexPath.row]
+        let item = savedItems[sourceIndexPath.row]
         savedItems.remove(at: sourceIndexPath.row)
-        savedItems.insert(itemToMove, at: destinationIndexPath.row)
-        loadData()
+        savedItems.insert(item, at: destinationIndexPath.row)
     }
+    
     
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -147,14 +157,17 @@ class SavedRecipeTableViewController: UITableViewController {
 //    }
     
     
-     func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showRecipeDetail" {
-            if let indexPath = tableView.indexPathForSelectedRow {
-                let detailVC: SavedDetailViewController = segue.destination as! SavedDetailViewController
-//                let object = self.fetched
-//                detailVC.savedDetail = savedItems[indexPath.row]
-            }
-        }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let indexPath = SavedRecipeTableView.indexPathForSelectedRow {
+            print("Index path:", indexPath)
+
+//        // Get the new view controller using segue.destination.
+        let detailVC = segue.destination as! SavedDetailViewController
+
+//        // Pass the selected object to the new view controller.
+
+        detailVC.savedDetail = savedItems[indexPath.row]
+    }
     }
     //showRecipeDetail
 

@@ -10,24 +10,54 @@ import SDWebImage
 import CoreData
 
 class SavedDetailViewController: UIViewController {
-
-  
-    var savedDetail = [Items]()
+    
+    
+    @IBOutlet weak var ImageView: UIImageView!
+    @IBOutlet weak var TitleLabel: UILabel!
+    @IBOutlet weak var IngredientLabel: UILabel!
+    @IBOutlet weak var intstructionLabel: UILabel!
+    
     var context: NSManagedObjectContext?
+    var savedDetail = Items()
     
-    
+    var titleText = String()
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+//        loadData()
+        
+        TitleLabel?.text = savedDetail.recipeTitle
+        IngredientLabel?.text = savedDetail.summary
+        ImageView.sd_setImage(with: URL(string: savedDetail.image!))
+        
     }
     
-
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let destinationVC: WebViewController = segue.destination as! WebViewController
+//    func loadData(){
+//        let request: NSFetchRequest<Items> = Items.fetchRequest()
+//        do{
+//            let result = try  context?.fetch(request)
+//            savedDetail = result
+//        }catch{
+//            fatalError("error in loading core data item")
+//        }
+//    }
 //
-//        destinationVC.urlString = savedDetail!.url
+//    func saveData(){
+//        do{
+//            try context?.save()
+//        }catch{
+//            fatalError("error in saving in core data item")
+//        }
+//        loadData()
 //
 //    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC: WebViewController = segue.destination as! WebViewController
+
+        destinationVC.urlString = savedDetail.url!
+
+    }
 
 }

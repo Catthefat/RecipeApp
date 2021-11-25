@@ -4,12 +4,12 @@
 //
 //  Created by kristians.tide on 23/11/2021.
 //
-
 import UIKit
 import CoreData
 
 class ShoppingListTableViewController: UITableViewController {
 
+    @IBOutlet weak var EditButton: UIBarButtonItem!
     @IBOutlet weak var tblView: UITableView!
     var shopping = [ShoppingList]()
     var managedObjectContext: NSManagedObjectContext?
@@ -81,19 +81,27 @@ class ShoppingListTableViewController: UITableViewController {
     }
     
 //MARK: Edit button
-    
-    @IBAction func EditButton(_ sender: Any) {
-        isEditing = !isEditing
-    }
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let itemToMove = shopping[sourceIndexPath.row]
+        let item = shopping[sourceIndexPath.row]
         shopping.remove(at: sourceIndexPath.row)
-        shopping.insert(itemToMove, at: destinationIndexPath.row)
-        loadData()
+        shopping.insert(item, at: destinationIndexPath.row)
     }
+    
+    @IBAction func EditButtonPressed(_ sender: Any) {
+        tblView.isEditing = !tblView.isEditing
+        
+        switch tblView.isEditing{
+        case true:
+            EditButton.title = "Done"
+        case false:
+            EditButton.title = "Edit"
+
+        }
+    }
+    
 
 //MARK: Delete all button
     
@@ -140,7 +148,6 @@ class ShoppingListTableViewController: UITableViewController {
     }
     
 // MARK: Delete singe item at line
-
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
@@ -148,8 +155,7 @@ class ShoppingListTableViewController: UITableViewController {
         }
         saveData()
     }
-    
-    
+
 //MARK: Checkmark
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -160,7 +166,3 @@ class ShoppingListTableViewController: UITableViewController {
 }
     
     
-    
-
-    
-
