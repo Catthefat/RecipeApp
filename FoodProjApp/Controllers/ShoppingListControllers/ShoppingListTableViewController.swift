@@ -45,6 +45,34 @@ class ShoppingListTableViewController: UITableViewController {
         loadData()
     }
     
+    
+//MARK: Delete all button
+        func deleteAllData(){
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "ShoppingList")
+            let delete: NSBatchDeleteRequest = NSBatchDeleteRequest(fetchRequest: request)
+            do{
+                try context?.execute(delete)
+                saveData()
+            }catch let err {
+                print(err.localizedDescription)
+            }
+        }
+        
+        @IBAction func DeleteAllButton(_ sender: Any) {
+            let alertController = UIAlertController(title: "Delete All Shopping items?", message: "Do you want to delete them all?", preferredStyle: .actionSheet)
+            let addActionButton = UIAlertAction(title: "Delete", style: .destructive) { action in
+                self.deleteAllData()
+            }
+            
+            let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            
+            alertController.addAction(addActionButton)
+            alertController.addAction(cancelButton)
+            
+            present(alertController, animated: true, completion: nil)
+        }
+        
+    
 //MARK: Button to add items
     
     @IBAction func addItem(_ sender: Any) {
@@ -103,37 +131,19 @@ class ShoppingListTableViewController: UITableViewController {
     }
     
 
-//MARK: Delete all button
-    
-    func deleteAllData(){
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Items")
-        let delete: NSBatchDeleteRequest = NSBatchDeleteRequest(fetchRequest: request)
-        do{
-            try context?.execute(delete)
-            saveData()
-        }catch let err {
-            print(err.localizedDescription)
-        }
-    }
-    
-    @IBAction func DeleteAllButton(_ sender: Any) {
-        let alertController = UIAlertController(title: "Delete All Shopping items?", message: "Do you want to delete them all?", preferredStyle: .actionSheet)
-        let addActionButton = UIAlertAction(title: "Delete", style: .destructive) { action in
-            self.deleteAllData()
-        }
-        
-        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
-        alertController.addAction(addActionButton)
-        alertController.addAction(cancelButton)
-        
-        present(alertController, animated: true, completion: nil)
-    }
-    
 // MARK: Cell and Row configuration
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if shopping.count == 0 {
+                self.tblView.setEmptyMessage("Tap + to add an item to your shopping list ")
+            } else {
+                self.tblView.restore()
+            }
         return shopping.count
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
     }
     
     
@@ -141,7 +151,7 @@ class ShoppingListTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "shoppingCell", for: indexPath)
         
         let shop = shopping[indexPath.row]
-        cell.textLabel?.text = "Item: \(shop.value(forKey: "item") ?? "")"
+        cell.textLabel?.text = "\(shop.value(forKey: "item") ?? "")"
         cell.detailTextLabel?.text = "Qty: \(shop.value(forKey: "itemCount") ?? "")"
         cell.accessoryType = shop.isCompleted ? .checkmark : .none
         return cell

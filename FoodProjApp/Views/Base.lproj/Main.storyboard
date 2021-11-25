@@ -128,9 +128,8 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="9ab-sx-mMx"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Enter a food type" translatesAutoresizingMaskIntoConstraints="NO" id="tMT-YZ-9sm">
+                            <searchBar clipsSubviews="YES" contentMode="redraw" searchBarStyle="minimal" placeholder="Enter a food type" translatesAutoresizingMaskIntoConstraints="NO" id="tMT-YZ-9sm">
                                 <rect key="frame" x="0.0" y="88" width="390" height="35"/>
-                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="CtJ-8q-bU5"/>
                                 </constraints>
@@ -140,8 +139,8 @@
                             </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemGray6Color"/>
-                        <color key="tintColor" systemColor="labelColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="ljP-Rq-Sig" secondAttribute="bottom" id="5AQ-T2-6KB"/>
                             <constraint firstItem="tMT-YZ-9sm" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Kmg-1V-XHu"/>
@@ -160,7 +159,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1653" y="212"/>
+            <point key="canvasLocation" x="1652.3076923076922" y="211.84834123222748"/>
         </scene>
         <!--Detail Recipe View Controller-->
         <scene sceneID="gd8-AY-Nct">
@@ -257,7 +256,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Tq8-s4-nwW">
-                        <barButtonItem key="rightBarButtonItem" title="Read More on Web" id="XFA-78-9mw">
+                        <barButtonItem key="rightBarButtonItem" image="globe" catalog="system" id="XFA-78-9mw">
                             <color key="tintColor" systemColor="systemOrangeColor"/>
                             <connections>
                                 <segue destination="Bbs-j5-Bie" kind="show" id="6db-0c-v2p"/>
@@ -453,8 +452,12 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="zMP-6u-EBf">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
                     <connections>
                         <outlet property="EditBttn" destination="CV2-dD-gRQ" id="nH3-Fw-glK"/>
+                        <outlet property="RefreshControl" destination="zMP-6u-EBf" id="Ab0-6y-Zm9"/>
                         <outlet property="SavedRecipeTableView" destination="vHq-wI-b31" id="64C-f6-cBZ"/>
                     </connections>
                 </tableViewController>
@@ -472,23 +475,23 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" showsReorderControl="YES" indentationWidth="10" reuseIdentifier="shoppingCell" textLabel="1h0-mc-CIY" detailTextLabel="aWi-qa-6ZL" style="IBUITableViewCellStyleSubtitle" id="Baf-kS-Euq">
-                                <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="55.666667938232422"/>
+                                <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="63.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Baf-kS-Euq" id="7uC-v6-9kS">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="55.666667938232422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="63.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1h0-mc-CIY">
-                                            <rect key="frame" x="20" y="7.3333333333333339" width="31.666666666666668" height="19.333333333333332"/>
+                                            <rect key="frame" x="19.999999999999996" y="12.333333333333336" width="37.666666666666664" height="24"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aWi-qa-6ZL">
-                                            <rect key="frame" x="20.000000000000004" y="29.333333333333329" width="37.333333333333336" height="17"/>
+                                            <rect key="frame" x="20" y="37" width="35" height="15.666666666666666"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -506,7 +509,7 @@
                         <barButtonItem key="leftBarButtonItem" image="trash" catalog="system" id="TIh-NH-zKO">
                             <color key="tintColor" systemColor="systemPinkColor"/>
                             <connections>
-                                <action selector="DeleteAllButton:" destination="Zqh-Xi-kff" id="bvT-j6-FTn"/>
+                                <action selector="DeleteAllButton:" destination="Zqh-Xi-kff" id="pMo-GX-fZI"/>
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
@@ -635,7 +638,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fmW-vD-tMB">
                                 <rect key="frame" x="0.0" y="238" width="390" height="1119"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dBX-tD-a6f">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dBX-tD-a6f">
                                         <rect key="frame" x="0.0" y="0.0" width="390" height="641"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tJY-Vc-clW">
@@ -679,10 +682,10 @@
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="dBX-tD-a6f" firstAttribute="height" secondItem="fmW-vD-tMB" secondAttribute="height" multiplier="0.484248" id="K5e-X0-kpd"/>
+                                    <constraint firstItem="dBX-tD-a6f" firstAttribute="height" secondItem="fmW-vD-tMB" secondAttribute="height" multiplier="0.484248" constant="99.126487999999995" id="K5e-X0-kpd"/>
                                     <constraint firstItem="dBX-tD-a6f" firstAttribute="top" secondItem="fmW-vD-tMB" secondAttribute="top" id="Mev-sb-MvW"/>
                                     <constraint firstItem="dBX-tD-a6f" firstAttribute="leading" secondItem="fmW-vD-tMB" secondAttribute="leading" id="Q11-pc-cqY"/>
-                                    <constraint firstAttribute="bottom" secondItem="dBX-tD-a6f" secondAttribute="bottom" constant="700" id="jy3-DP-NlJ"/>
+                                    <constraint firstAttribute="bottom" secondItem="dBX-tD-a6f" secondAttribute="bottom" constant="478" id="jy3-DP-NlJ"/>
                                     <constraint firstAttribute="trailing" secondItem="dBX-tD-a6f" secondAttribute="trailing" id="vuq-As-ugf"/>
                                     <constraint firstItem="dBX-tD-a6f" firstAttribute="width" secondItem="fmW-vD-tMB" secondAttribute="width" id="wGn-Pa-Hst"/>
                                 </constraints>
@@ -701,7 +704,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="tY1-XM-ayF">
-                        <barButtonItem key="rightBarButtonItem" title="Read More on Web" id="oqM-1G-BKZ">
+                        <barButtonItem key="rightBarButtonItem" image="globe" catalog="system" id="oqM-1G-BKZ">
                             <color key="tintColor" systemColor="systemOrangeColor"/>
                             <connections>
                                 <segue destination="Bbs-j5-Bie" kind="show" id="ZDG-Sx-40f"/>
@@ -716,13 +719,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1np-Qt-sze" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2393.8461538461538" y="883.64928909952607"/>
+            <point key="canvasLocation" x="2394" y="862"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="6db-0c-v2p"/>
+        <segue reference="ZDG-Sx-40f"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="globe" catalog="system" width="128" height="121"/>
         <image name="list.bullet.rectangle.portrait" catalog="system" width="115" height="128"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="plus" catalog="system" width="128" height="113"/>
@@ -733,9 +737,6 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

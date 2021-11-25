@@ -22,13 +22,33 @@ class DetailRecipeViewController: UIViewController {
     @IBOutlet weak var titleTextLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
-//        ingredientsLabel?.text = details.extendedIngredients[value(forKey: "name")]
+        
         instructionsLabel?.text = details.summary
+            .replacingOccurrences(of: "<b>", with: " ")
+            .replacingOccurrences(of: "</b>", with: " ")
+            .replacingOccurrences(of: "<a href=", with: " ")
+            .replacingOccurrences(of: "</a>", with: " ")
         titleTextLabel?.text = details.title
         ImageView.sd_setImage(with: URL(string: details.image))
+        
+
+//        let words: () = details.extendedIngredients.forEach({ ExtendedIngredients in
+//            ingredientsLabel?.text = ExtendedIngredients.name + String(ExtendedIngredients.amount) + ExtendedIngredients.unit
+//
+//        })
+//        print("Words: ", words)
+        
+        for extendedIngredients in details.extendedIngredients {
+            print("name: ", extendedIngredients.name)
+            ingredientsLabel?.text = extendedIngredients.name
+        }
     }
-    
+//    + String(extendedIngredients.amount) + extendedIngredients.unit
+//    cell.dateLabel.text = item.publishedAt
+//          .replacingOccurrences(of: "T", with: " ")
+//          .replacingOccurrences(of: "Z", with: "")
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC: WebViewController = segue.destination as! WebViewController

@@ -26,14 +26,26 @@ class RecipeViewController: UIViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.searchBar.delegate = self
+
+        if let textField = searchBar.value(forKey: "searchField") as? UITextField {
+            textField.textColor = UIColor.white
+            textField.backgroundColor = UIColor.systemOrange
+            textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor: UIColor.darkGray])
+            if let leftView = textField.leftView as? UIImageView {
+                leftView.image = leftView.image?.withRenderingMode(.alwaysTemplate)
+                leftView.tintColor = UIColor.darkGray
+            }
+        }
+        //
+//        searchBar.setTextFieldColor(UIColor.systemOrange)
+
+        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         context = appDelegate.persistentContainer.viewContext
         
         
     }
-    
     //MARK: Save/Load Data
     
     func saveData(){
@@ -85,10 +97,6 @@ class RecipeViewController: UIViewController, UISearchBarDelegate {
         action.backgroundColor = .systemOrange
         return UISwipeActionsConfiguration(actions: [action])
     }
-    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    //        savedItems[indexPath.row] = !savedItems[indexPath.row]
-    //        saveData()
-    //    }
     
     
     //MARK: search bar text to handleGetData(query: String)
@@ -104,7 +112,7 @@ class RecipeViewController: UIViewController, UISearchBarDelegate {
     
     //MARK: Handle Json data
     func handleGetData(query: String){
-        let jsonUrl = "https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&sort=popularity&sortDirection=asc&query=\(query)&number=6&apiKey=\(apiKey2)&fillIngredients=true"
+        let jsonUrl = "https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&sort=popularity&sortDirection=asc&query=\(query)&number=10&apiKey=\(apiKey2)&fillIngredients=true"
         
         guard let url = URL(string: jsonUrl) else {return}
         
@@ -142,23 +150,38 @@ class RecipeViewController: UIViewController, UISearchBarDelegate {
         }.resume()
     }
 }
-//extension String {
-//    func textAtributes(text: String, font: UIFont? = nil) -> NSAttributedString {
-//        let _font = font ?? UIFont.systemFont(ofSize: 14, weight: .regular)
-//        let fullString = NSMutableAttributedString(string: self, attributes: [NSAttributedString.Key.font : _font])
-//        let boldFontAttribute: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: _font.pointSize)]
-//        let range = (self as NSString).range(of: text)
-//        fullString.addAttributes(boldFontAttribute, range: range)
-//        return fullString
-//    }
-//
-//}
+
+extension UITableView {
+
+    func setEmptyMessage(_ message: String) {
+        let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height))
+        messageLabel.text = message
+        messageLabel.textColor = .systemOrange
+        messageLabel.numberOfLines = 0
+        messageLabel.textAlignment = .center
+        messageLabel.font = UIFont(name: "Arial", size: 23)
+        messageLabel.sizeToFit()
+
+        self.backgroundView = messageLabel
+        self.separatorStyle = .none
+    }
+
+    func restore() {
+        self.backgroundView = nil
+        self.separatorStyle = .singleLine
+    }
+}
 
 extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
     
     //MARK: Cell and Table Configuration
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if foodItems.count == 0 {
+                self.tblView.setEmptyMessage("What type of food would you like today?")
+            } else {
+                self.tblView.restore()
+            }
         return foodItems.count
     }
     

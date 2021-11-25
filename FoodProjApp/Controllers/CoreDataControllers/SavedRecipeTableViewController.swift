@@ -16,7 +16,7 @@ class SavedRecipeTableViewController: UITableViewController {
     var context: NSManagedObjectContext?
     var recipeTitle = String()
     var urlStr = String()
-
+    @IBOutlet weak var RefreshControl: UIRefreshControl!
     @IBOutlet weak var EditBttn: UIBarButtonItem!
     @IBOutlet var SavedRecipeTableView: UITableView!
     
@@ -115,8 +115,14 @@ class SavedRecipeTableViewController: UITableViewController {
     }
     
     
+    
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if savedItems.count == 0 {
+                self.SavedRecipeTableView.setEmptyMessage("There are no recipes saved!")
+            } else {
+                self.SavedRecipeTableView.restore()
+            }
         return savedItems.count
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -209,3 +215,4 @@ class SavedRecipeTableViewController: UITableViewController {
     */
 
 }
+
