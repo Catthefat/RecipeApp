@@ -16,8 +16,8 @@ class RecipeViewController: UIViewController, UISearchBarDelegate {
     var apiKey2 = "29483c45113645b3bb52bd896bd5836e" //two api keys because during testing i used up all calls too quickly
     
     var savedItems = [Items]()
+    var savedIngredients = [Ingredients]()
     var context: NSManagedObjectContext?
-    
     var foodItems: [FoodItems] = []
     let sourceUrl = String()
     
@@ -72,10 +72,14 @@ class RecipeViewController: UIViewController, UISearchBarDelegate {
     
     func handleMarkAsSaved(indexPath: IndexPath) {
         let newItem = Items(context: context!)
+        let newItem2 = Ingredients(context: context!)
         print("indexPath:", indexPath)
         let item = foodItems[indexPath.row]
         
-        
+        newItem2.name = item.extendedIngredients[0].name
+        newItem2.unit = item.extendedIngredients[0].unit
+        newItem2.amount = item.extendedIngredients[0].amount
+
         newItem.url = item.sourceUrl
         newItem.author = item.sourceName
         newItem.recipeTitle = item.title

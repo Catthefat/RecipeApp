@@ -9,7 +9,7 @@ import UIKit
 import SDWebImage
 import CoreData
 
-class SavedDetailViewController: UIViewController {
+class SavedDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
     @IBOutlet weak var SavedIngredientTblView: UITableView!
@@ -20,6 +20,7 @@ class SavedDetailViewController: UIViewController {
     
     var context: NSManagedObjectContext?
     var savedDetail = Items()
+    var savedIngredients = [Ingredients]()
     
     var titleText = String()
 
@@ -27,6 +28,9 @@ class SavedDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 //        loadData()
+        
+        SavedIngredientTblView.delegate = self
+        SavedIngredientTblView.dataSource = self
         
         TitleLabel?.text = savedDetail.recipeTitle
         IngredientLabel?.text = savedDetail.summary
@@ -36,24 +40,26 @@ class SavedDetailViewController: UIViewController {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if foodItems.count == 0 {
+        if savedIngredients.count == 0 {
                 self.SavedIngredientTblView.setEmptyMessage("No ingredients found!")
             } else {
                 self.SavedIngredientTblView.restore()
             }
         
-        return savedDetail.extendedIngredients.count
+        return 3 //savedIngredients.count
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "savedIngredientCell", for: indexPath) as? SavedDetailTableViewCell else {return UITableViewCell()}
-        
-        let item = SavedIngredientTblView.extendedIngredients[indexPath.row]
-        cell.IngredientsLabel?.text = item.name
-        cell.AmountLabel?.text = String(item.amount) + " " + item.unit
-      
+//
+//        let item = savedIngredients[indexPath.row]
+        cell.SavedIngredientLabel?.text = "item.name"
+//        let item = savedIngredients[indexPath.row]
+//        cell.SavedIngredientLabel?.text = item.name
+//        cell.SavedAmountLabel?.text = String(item.amount) + " " + item.unit!
+//
         return cell
     }
     
