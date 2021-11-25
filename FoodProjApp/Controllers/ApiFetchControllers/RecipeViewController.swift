@@ -112,7 +112,7 @@ class RecipeViewController: UIViewController, UISearchBarDelegate {
     
     //MARK: Handle Json data
     func handleGetData(query: String){
-        let jsonUrl = "https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&sort=popularity&sortDirection=asc&query=\(query)&number=10&apiKey=\(apiKey2)&fillIngredients=true"
+        let jsonUrl = "https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&sort=popularity&sortDirection=asc&query=\(query)&number=1&apiKey=\(apiKey2)&fillIngredients=true"
         
         guard let url = URL(string: jsonUrl) else {return}
         

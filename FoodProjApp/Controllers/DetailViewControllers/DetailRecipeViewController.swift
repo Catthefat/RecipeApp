@@ -11,9 +11,12 @@ import SDWebImage
 class DetailRecipeViewController: UIViewController {
 
     var details: FoodItems!
+    var foodItems: [FoodItems] = []
+
     
     
     
+    @IBOutlet weak var DetailTblView: UITableView!
     @IBOutlet weak var urlButton: UIBarButtonItem!
     @IBOutlet weak var ingredientsLabel: UILabel!
 
@@ -57,4 +60,32 @@ class DetailRecipeViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
 
+}
+extension DetailRecipeViewController: UITableViewDelegate, UITableViewDataSource {
+    
+//MARK: Cell and Table Configuration
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if details.extendedIngredients.count == 0 {
+                self.DetailTblView.setEmptyMessage("No ingredients found!")
+            } else {
+                self.DetailTblView.restore()
+            }
+        return  details.extendedIngredients.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ingredientCell", for: indexPath) as? DetailTableViewCell else {return UITableViewCell()}
+        
+        let item = details.extendedIngredients[indexPath.row]
+        cell.IngredientsLabel?.text = item.name
+        return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
+    
 }
