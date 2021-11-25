@@ -454,10 +454,12 @@
                     </navigationItem>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="zMP-6u-EBf">
                         <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <action selector="HandleRefresh:" destination="Tlw-hV-nRY" eventType="valueChanged" id="T5I-Lk-jab"/>
+                        </connections>
                     </refreshControl>
                     <connections>
                         <outlet property="EditBttn" destination="CV2-dD-gRQ" id="nH3-Fw-glK"/>
-                        <outlet property="RefreshControl" destination="zMP-6u-EBf" id="Ab0-6y-Zm9"/>
                         <outlet property="SavedRecipeTableView" destination="vHq-wI-b31" id="64C-f6-cBZ"/>
                     </connections>
                 </tableViewController>

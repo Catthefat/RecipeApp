@@ -16,7 +16,7 @@ class SavedRecipeTableViewController: UITableViewController {
     var context: NSManagedObjectContext?
     var recipeTitle = String()
     var urlStr = String()
-    @IBOutlet weak var RefreshControl: UIRefreshControl!
+
     @IBOutlet weak var EditBttn: UIBarButtonItem!
     @IBOutlet var SavedRecipeTableView: UITableView!
     
@@ -29,6 +29,20 @@ class SavedRecipeTableViewController: UITableViewController {
         
         loadData()
     }
+    
+    @IBAction func HandleRefresh(_ sender: Any) {
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false, block: { (timer) in
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Items")
+            do{
+                try self.context?.execute(request)
+                self.saveData()
+            }catch let err {
+                print(err.localizedDescription)
+            }
+            self.refreshControl?.endRefreshing()
+        })
+    }
+    
 
     func loadData(){
         let request: NSFetchRequest<Items> = Items.fetchRequest()
