@@ -25,9 +25,10 @@ class RecipeViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var tblView: UITableView!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         self.searchBar.delegate = self
-
+        
         if let textField = searchBar.value(forKey: "searchField") as? UITextField {
             textField.textColor = UIColor.white
             textField.backgroundColor = UIColor.systemOrange
@@ -37,16 +38,11 @@ class RecipeViewController: UIViewController, UISearchBarDelegate {
                 leftView.tintColor = UIColor.darkGray
             }
         }
-        //
-//        searchBar.setTextFieldColor(UIColor.systemOrange)
-
-        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         context = appDelegate.persistentContainer.viewContext
-        
-        
     }
-    //MARK: Save/Load Data
+    
+//MARK: Save/Load Data
     
     func saveData(){
         do{
@@ -67,8 +63,7 @@ class RecipeViewController: UIViewController, UISearchBarDelegate {
         }
     }
     
-    //MARK: Trailing swipe "Save" action
-    
+//MARK: Trailing swipe "Save" action
     
     func handleMarkAsSaved(indexPath: IndexPath) {
         let newItem = Items(context: context!)
@@ -76,10 +71,12 @@ class RecipeViewController: UIViewController, UISearchBarDelegate {
         print("indexPath:", indexPath)
         let item = foodItems[indexPath.row]
         
+        //saving ingredients to ingredients entity
         newItem2.name = item.extendedIngredients[0].name
         newItem2.unit = item.extendedIngredients[0].unit
         newItem2.amount = item.extendedIngredients[0].amount
-
+        
+        //saving info about the recipe to Items entity
         newItem.url = item.sourceUrl
         newItem.author = item.sourceName
         newItem.recipeTitle = item.title
@@ -88,12 +85,18 @@ class RecipeViewController: UIViewController, UISearchBarDelegate {
         newItem.servings = String(item.servings)
         newItem.summary = item.summary
         
-        
         savedItems.append(newItem)
+        savedIngredients.append(newItem2)
         print("newItem.newsTitle: ", savedItems)
+        print("savedIngredients: ", savedIngredients)
+        
+        //alert to show "Saved!" when saving
+        basicAlert(title: "Saved!", message: "Added to Saved Recipes")
+        
         saveData()
     }
     
+    // function to animate to save a recipe
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let action = UIContextualAction(style: .normal, title: "Save") {
             (action, view, completionHandler) in self.handleMarkAsSaved(indexPath: indexPath)
@@ -104,7 +107,7 @@ class RecipeViewController: UIViewController, UISearchBarDelegate {
     }
     
     
-    //MARK: search bar text to handleGetData(query: String)
+//MARK: search bar text to handleGetData(query: String)
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let text = searchBar.text {
@@ -115,9 +118,10 @@ class RecipeViewController: UIViewController, UISearchBarDelegate {
     }
     
     
-    //MARK: Handle Json data
+//MARK: Handle Json data
+    
     func handleGetData(query: String){
-        let jsonUrl = "https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&sort=popularity&sortDirection=asc&query=\(query)&number=1&apiKey=\(apiKey2)&fillIngredients=true"
+        let jsonUrl = "https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&sort=popularity&sortDirection=asc&query=\(query)&number=10&apiKey=\(apiKey2)&fillIngredients=true"
         
         guard let url = URL(string: jsonUrl) else {return}
         
@@ -156,37 +160,20 @@ class RecipeViewController: UIViewController, UISearchBarDelegate {
     }
 }
 
-extension UITableView {
 
-    func setEmptyMessage(_ message: String) {
-        let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height))
-        messageLabel.text = message
-        messageLabel.textColor = .systemOrange
-        messageLabel.numberOfLines = 0
-        messageLabel.textAlignment = .center
-        messageLabel.font = UIFont(name: "Arial", size: 23)
-        messageLabel.sizeToFit()
-
-        self.backgroundView = messageLabel
-        self.separatorStyle = .none
-    }
-
-    func restore() {
-        self.backgroundView = nil
-        self.separatorStyle = .singleLine
-    }
-}
 
 extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
     
-    //MARK: Cell and Table Configuration
+//MARK: Cell and Table Configuration
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        //if there are no cells, then it will display text
         if foodItems.count == 0 {
-                self.tblView.setEmptyMessage("What type of food would you like today?")
-            } else {
-                self.tblView.restore()
-            }
+            self.tblView.setEmptyMessage("What type of food would you like today?\n You can search for a recipe in the search bar above")
+        } else {
+            self.tblView.restore()
+        }
         return foodItems.count
     }
     
@@ -200,6 +187,7 @@ extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
         cell.readyInLabel.text = "Cooking Time: " + String(item.readyInMinutes) + " min"
         cell.RecipeNameLabel.text = item.title
         cell.recipeImageView.sd_setImage(with:URL(string: item.image), placeholderImage: UIImage(named: "applelogo"))
+        cell.layer.cornerRadius = 10
         
         return cell
     }
@@ -208,31 +196,17 @@ extension RecipeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 250
     }
-    
-    
-    //MARK: Segue to WebView
+
+//MARK: Segue to WebView
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let indexPath = tblView.indexPathForSelectedRow {
             print("Index path:", indexPath)
-
-        let detailVC = segue.destination as! DetailRecipeViewController
-
-        detailVC.details = foodItems[indexPath.row]
+            
+            let detailVC = segue.destination as! DetailRecipeViewController
+            
+            detailVC.details = foodItems[indexPath.row]
             
         }
     }
-    
-    
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "showLink" {
-//            if let indexPath = tblView.indexPathForSelectedRow {
-//                let destination = segue.destination as?
-//                WebViewController
-//                let item = foodItems[indexPath.row]
-//                destination?.urlString = item.sourceUrl
-//            }
-//        }
-//    }
 }

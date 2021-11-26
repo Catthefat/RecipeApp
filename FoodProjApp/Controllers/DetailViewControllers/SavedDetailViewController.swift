@@ -27,14 +27,43 @@ class SavedDetailViewController: UIViewController, UITableViewDelegate, UITableV
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        loadData()
+
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        context = appDelegate.persistentContainer.viewContext
         
         SavedIngredientTblView.delegate = self
         SavedIngredientTblView.dataSource = self
         
         TitleLabel?.text = savedDetail.recipeTitle
-        IngredientLabel?.text = savedDetail.summary
+        IngredientLabel?.text = savedDetail.summary?
+            .replacingOccurrences(of: "<b>", with: " ")
+            .replacingOccurrences(of: "</b>", with: " ")
+            .replacingOccurrences(of: "<a href=", with: " ")
+            .replacingOccurrences(of: "</a>", with: " ")
+//            .replacingOccurrences(of: "\\[.*?\\]", with: " ")
         ImageView.sd_setImage(with: URL(string: savedDetail.image!))
+        
+        loadData()
+    }
+    
+    func loadData(){
+        let request: NSFetchRequest<Ingredients> = Ingredients.fetchRequest()
+        do{
+            let result = try  context?.fetch(request)
+            savedIngredients = result!
+            SavedIngredientTblView.reloadData()
+        }catch{
+            fatalError("error in loading core data item")
+        }
+    }
+    
+    func saveData(){
+        do{
+            try context?.save()
+        }catch{
+            fatalError("error in saving in core data item")
+        }
+        loadData()
         
     }
     
@@ -46,7 +75,7 @@ class SavedDetailViewController: UIViewController, UITableViewDelegate, UITableV
                 self.SavedIngredientTblView.restore()
             }
         
-        return 3 //savedIngredients.count
+        return savedIngredients.count
         
     }
     
@@ -54,16 +83,15 @@ class SavedDetailViewController: UIViewController, UITableViewDelegate, UITableV
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "savedIngredientCell", for: indexPath) as? SavedDetailTableViewCell else {return UITableViewCell()}
 //
-//        let item = savedIngredients[indexPath.row]
-        cell.SavedIngredientLabel?.text = "item.name"
+        let item = savedIngredients[indexPath.row]
+        cell.SavedIngredientLabel?.text = item.name
+        cell.SavedAmountLabel?.text = String(item.amount)
 //        let item = savedIngredients[indexPath.row]
 //        cell.SavedIngredientLabel?.text = item.name
 //        cell.SavedAmountLabel?.text = String(item.amount) + " " + item.unit!
 //
         return cell
     }
-    
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
@@ -72,7 +100,6 @@ class SavedDetailViewController: UIViewController, UITableViewDelegate, UITableV
         let destinationVC: WebViewController = segue.destination as! WebViewController
 
         destinationVC.urlString = savedDetail.url!
-
     }
 
 }

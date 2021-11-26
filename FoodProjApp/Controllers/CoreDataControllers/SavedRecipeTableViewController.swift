@@ -30,6 +30,7 @@ class SavedRecipeTableViewController: UITableViewController {
         loadData()
     }
     
+    //swipe down to refresh and fetch data
     @IBAction func HandleRefresh(_ sender: Any) {
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false, block: { (timer) in
             let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Items")
@@ -43,7 +44,7 @@ class SavedRecipeTableViewController: UITableViewController {
         })
     }
     
-
+//MARK: Save/Load Data
     func loadData(){
         let request: NSFetchRequest<Items> = Items.fetchRequest()
         do{
@@ -64,7 +65,9 @@ class SavedRecipeTableViewController: UITableViewController {
         loadData()
         
     }
-    
+
+//MARK: Deleteing
+    //alert for deleting all
     func basicAlert2(indexPath: IndexPath) {
         let alert = UIAlertController(title: "Delete?", message: "", preferredStyle: .alert)
         let yes = UIAlertAction(title: "OK", style: .default) { [self]
@@ -92,7 +95,7 @@ class SavedRecipeTableViewController: UITableViewController {
     }
     
     
-    
+    // trash icon "Delete all"
     @IBAction func DeleteButton(_ sender: Any) {
         let alertController = UIAlertController(title: "Delete All?", message: "Do you want to delete them all?", preferredStyle: .actionSheet)
         let addActionButton = UIAlertAction(title: "Delete", style: .destructive) { action in
@@ -111,6 +114,7 @@ class SavedRecipeTableViewController: UITableViewController {
     @IBAction func EditBttnPressed(_ sender: Any) {
         SavedRecipeTableView.isEditing = !SavedRecipeTableView.isEditing
         
+        //when editing it changes text from "Edit" to "Done"
         switch SavedRecipeTableView.isEditing{
         case true:
             EditBttn.title = "Done"
@@ -130,19 +134,20 @@ class SavedRecipeTableViewController: UITableViewController {
     
     
     
-    // MARK: - Table view data source
+// MARK: Table view and cell setup
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         if savedItems.count == 0 {
-                self.SavedRecipeTableView.setEmptyMessage("There are no recipes saved!")
+                self.SavedRecipeTableView.setEmptyMessage("Swipe down to refresh")
             } else {
                 self.SavedRecipeTableView.restore()
             }
+        
         return savedItems.count
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "savedCell", for: indexPath) as? SavedRecipeTableViewCell else {return UITableViewCell()}
         
-//        let indexPath = SavedRecipeTableView.indexPathForSelectedRow
         let item = savedItems[indexPath.row]
         
         cell.SavedTitleLabel?.text = item.recipeTitle
@@ -165,68 +170,15 @@ class SavedRecipeTableViewController: UITableViewController {
         saveData()
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let indexPath = SavedRecipeTableView.indexPathForSelectedRow
-//        let item = savedItems[indexPath!.row]
-//        // Get the new view controller using segue.destination.
-//
-//        let destinationVC: WebViewController = segue.destination as! WebViewController
-//        destinationVC.urlString = item.url!
-//        // Pass the selected object to the new view controller.
-//
-//    }
-    
-    
+//MARK: Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let indexPath = SavedRecipeTableView.indexPathForSelectedRow {
             print("Index path:", indexPath)
 
-//        // Get the new view controller using segue.destination.
         let detailVC = segue.destination as! SavedDetailViewController
-
-//        // Pass the selected object to the new view controller.
 
         detailVC.savedDetail = savedItems[indexPath.row]
     }
-    }
-    //showRecipeDetail
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+}
 }
 

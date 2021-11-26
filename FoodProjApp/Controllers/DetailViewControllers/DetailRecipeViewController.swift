@@ -14,13 +14,9 @@ class DetailRecipeViewController: UIViewController, UITableViewDelegate, UITable
     var details: FoodItems!
     var foodItems: [FoodItems] = []
 
-    
-    
-    
     @IBOutlet weak var DetailTblView: UITableView!
     @IBOutlet weak var urlButton: UIBarButtonItem!
     @IBOutlet weak var ingredientsLabel: UILabel!
-
     @IBOutlet weak var instructionsLabel: UILabel!
     @IBOutlet weak var ImageView: UIImageView!
     @IBOutlet weak var titleTextLabel: UILabel!
@@ -37,29 +33,8 @@ class DetailRecipeViewController: UIViewController, UITableViewDelegate, UITable
             .replacingOccurrences(of: "<a href=", with: " ")
             .replacingOccurrences(of: "</a>", with: " ")
         titleTextLabel?.text = details.title
-//        ImageView.sd_setImage(with: URL(string: details.image))
-        
-
-//        let words: () = details.extendedIngredients.forEach({ ExtendedIngredients in
-//            ingredientsLabel?.text = ExtendedIngredients.name + String(ExtendedIngredients.amount) + ExtendedIngredients.unit
-//
-//        })
-//        print("Words: ", words)
-//
-//        for extendedIngredients in details.extendedIngredients {
-//            print("name: ", extendedIngredients.name)
-//            ingredientsLabel?.text = extendedIngredients.name
-//        }
-//    }
-//    + String(extendedIngredients.amount) + extendedIngredients.unit
-//    cell.dateLabel.text = item.publishedAt
-//          .replacingOccurrences(of: "T", with: " ")
-//          .replacingOccurrences(of: "Z", with: "")
-    
+        ImageView.sd_setImage(with: URL(string: details.image))
     }
-
-    var testArr = ["one", "two", "three"]
-
 //MARK: Cell and Table Configuration
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -69,7 +44,6 @@ class DetailRecipeViewController: UIViewController, UITableViewDelegate, UITable
             } else {
                 self.DetailTblView.restore()
             }
-        
         return details.extendedIngredients.count
         
     }
@@ -89,12 +63,12 @@ class DetailRecipeViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
-    
+
+//MARK: segue to WebView
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
        let destinationVC: WebViewController = segue.destination as! WebViewController
        
        destinationVC.urlString = details!.sourceUrl
-       // Pass the selected object to the new view controller.
    }
 }
 

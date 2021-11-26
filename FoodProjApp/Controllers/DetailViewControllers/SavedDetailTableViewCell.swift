@@ -8,10 +8,8 @@
 import UIKit
 
 class SavedDetailTableViewCell: UITableViewCell {
-
-  
-    @IBOutlet weak var SavedIngredientLabel: UILabel!
     
+    @IBOutlet weak var SavedIngredientLabel: UILabel!
     @IBOutlet weak var SavedAmountLabel: UILabel!
     
 }

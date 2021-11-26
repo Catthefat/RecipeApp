@@ -24,7 +24,6 @@ class ShoppingListTableViewController: UITableViewController {
     }
     
 // MARK: Save/Load Data
-    
     func loadData(){
         let request: NSFetchRequest<ShoppingList> = ShoppingList.fetchRequest()
         do{
@@ -35,7 +34,6 @@ class ShoppingListTableViewController: UITableViewController {
             fatalError("error in loading core data item")
         }
     }
-    
     func saveData(){
         do{
             try managedObjectContext?.save()
@@ -45,13 +43,12 @@ class ShoppingListTableViewController: UITableViewController {
         loadData()
     }
     
-    
 //MARK: Delete all button
         func deleteAllData(){
             let request = NSFetchRequest<NSFetchRequestResult>(entityName: "ShoppingList")
             let delete: NSBatchDeleteRequest = NSBatchDeleteRequest(fetchRequest: request)
             do{
-                try context?.execute(delete)
+                try managedObjectContext?.execute(delete)
                 saveData()
             }catch let err {
                 print(err.localizedDescription)
@@ -74,7 +71,6 @@ class ShoppingListTableViewController: UITableViewController {
         
     
 //MARK: Button to add items
-    
     @IBAction func addItem(_ sender: Any) {
         let alertController = UIAlertController(title: "Shopping Item", message: "What do you want to add?", preferredStyle: .alert)
         alertController.addTextField { textField in
@@ -128,14 +124,14 @@ class ShoppingListTableViewController: UITableViewController {
             EditButton.title = "Edit"
 
         }
+        
     }
     
 
 // MARK: Cell and Row configuration
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if shopping.count == 0 {
-                self.tblView.setEmptyMessage("Tap + to add an item to your shopping list ")
+                self.tblView.setEmptyMessage("Tap + to add an item to your Shopping List ")
             } else {
                 self.tblView.restore()
             }
@@ -143,7 +139,7 @@ class ShoppingListTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        return 65
     }
     
     
@@ -152,7 +148,7 @@ class ShoppingListTableViewController: UITableViewController {
         
         let shop = shopping[indexPath.row]
         cell.textLabel?.text = "\(shop.value(forKey: "item") ?? "")"
-        cell.detailTextLabel?.text = "Qty: \(shop.value(forKey: "itemCount") ?? "")"
+        cell.detailTextLabel?.text = "\(shop.value(forKey: "itemCount") ?? "")"
         cell.accessoryType = shop.isCompleted ? .checkmark : .none
         return cell
     }
@@ -166,8 +162,7 @@ class ShoppingListTableViewController: UITableViewController {
         saveData()
     }
 
-//MARK: Checkmark
-    
+//MARK: Checkmark when tapped
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         shopping[indexPath.row].isCompleted = !shopping[indexPath.row].isCompleted
         saveData()
